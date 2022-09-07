@@ -1,6 +1,7 @@
 #module imports
 import credentials as cred
 import spotipy_module as spm
+import export_module as exm
 
 #other imports
 import sys
@@ -14,8 +15,8 @@ def main(artist_name='Casting Crowns', export_type='raw', export_pathname='C:/Us
 
     if(export_type=='csv'): print('Export mode = csv')
     elif(export_type=='excel'): print('Export mode = excel')
-    elif(export_type=='json'): print('Export mode = json')
-    else: print('Export mode = raw')
+    elif(export_type=='json'): exm.export_to_jason(json_data=albums,pathname=export_pathname+'.json')
+    else: print(albums) #RAW output
 
 if __name__ == '__main__':
     argv = sys.argv

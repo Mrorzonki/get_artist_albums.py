@@ -1,7 +1,7 @@
 #project imports
 import credentials as cred
 import spotipy as sp
-#other imporst
+#other imports
 import json
 
 result_size = 10 #TODO: set to desired ammount; #number of items returned from one search, 50 is max
