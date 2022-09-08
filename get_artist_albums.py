@@ -5,7 +5,6 @@ import export_module as exm
 
 #other imports
 import sys
-import json
 
 def main(artist_name='Casting Crowns', export_type='raw', export_pathname='C:/Users/X/Desktop/out'):
     auth_sp = spm.get_authentication(cred.client_id, cred.client_secret) 
