@@ -10,3 +10,7 @@ def write_to_jason(json_data, pathname):
 def write_to_csv(json_data, pathname):
     df = pd.DataFrame(json_data)
     df.to_csv(path_or_buf=pathname,index=False,header=False,mode='w')
+
+def write_to_excel(json_data, pathname): #write to xlsx excel format
+    df = pd.DataFrame(json_data)
+    df.to_excel(excel_writer=pathname,index=False,header=False)
