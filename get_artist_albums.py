@@ -13,7 +13,7 @@ def main(artist_name='Casting Crowns', export_type='raw', export_pathname='C:/Us
     artist = spm.get_artist_by_name(auth_sp, artist_name)
     albums = spm.get_albums_by_artist(auth_sp, artist['id'])
 
-    if(export_type=='csv'): print('Export mode = csv')
+    if(export_type=='csv'): exm.write_to_csv(json_data=albums,pathname=export_pathname+'.csv')
     elif(export_type=='excel'): print('Export mode = excel')
     elif(export_type=='json'): exm.write_to_jason(json_data=albums,pathname=export_pathname+'.json')
     else: print(albums) #RAW output
