@@ -15,7 +15,7 @@ def main(artist_name='Casting Crowns', export_type='raw', export_pathname='C:/Us
 
     if(export_type=='csv'): print('Export mode = csv')
     elif(export_type=='excel'): print('Export mode = excel')
-    elif(export_type=='json'): exm.export_to_jason(json_data=albums,pathname=export_pathname+'.json')
+    elif(export_type=='json'): exm.write_to_jason(json_data=albums,pathname=export_pathname+'.json')
     else: print(albums) #RAW output
 
 if __name__ == '__main__':
