@@ -6,7 +6,9 @@ import export_module as exm
 #other imports
 import sys
 
-def main(artist_name='Casting Crowns', export_type='raw', export_pathname='C:/Users/X/Desktop/out'):
+def main(artist_name, export_type, export_pathname):
+    export_type = export_type.lower()
+
     auth_sp = spm.get_authentication(cred.client_id, cred.client_secret) 
     
     artist = spm.get_artist_by_name(auth_sp, artist_name)
@@ -20,13 +22,18 @@ def main(artist_name='Casting Crowns', export_type='raw', export_pathname='C:/Us
 if __name__ == '__main__':
     argv = sys.argv
 
-    #TODO: parmeters validation
-    if(len(argv) < 2 or 3 < len(argv)):  sys.exit("ERROR: invalid parameters count") #script requires 2 to 3 parameters
-       
-    artist_name=argv[1]
-    export_type=argv[2].lower()
+    if(3 <= len(argv) <= 4 and argv[2].lower() in ['csv','excel','json','raw']):
+        artist_name = argv[1]
+        export_type = argv[2]
+        
+        if(len(argv) == 4): export_pathname = exm.rmv_file_extension(argv[3])
+        else: export_pathname = exm.get_snake_case(artist_name)
 
-    if(export_type not in ['csv','excel','json','raw']): sys.exit("ERROR: invalid export type selected") #avaliable eksport types
-    
-    #export_pathname=argv[3] #TODO: provide devault export pathname 
-    main(export_type=export_type) #TODO
+        main(artist_name=artist_name, export_type=export_type, export_pathname=export_pathname)
+    else:
+        error = "Error: invalid paramiters provided"
+        error += "\nTry: get_artist_albums.py 'artist name' 'export type' 'file pathname'"
+        error += "\n  'artist name' - name of the aritst in spotify"
+        error += "\n  'export type' - avalible output formats: 'csv','excel','json' (crates a file) or 'raw' (wites to console)"
+        error += "\n  'file pathname' - optional pathname for output file (without file extension)"
+        sys.exit(error)

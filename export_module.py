@@ -1,6 +1,19 @@
 #imports
 import pandas as pd
 import json
+import re
+
+#helper functions
+
+def get_snake_case(str):
+    str = str.lower()
+    str = re.sub('\s', '_', str)
+    return str
+
+def rmv_file_extension(pathname):
+    return re.sub('[.]\w*$', '', pathname)
+
+#export functions
 
 def write_to_jason(json_data, pathname):
     file = open(file=pathname,mode='w')
