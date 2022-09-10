@@ -14,11 +14,16 @@ def main(artist_name, export_type, export_pathname=None):
     artist = spm.get_artist_by_name(auth_sp, artist_name)
     albums = spm.get_albums_by_artist(auth_sp, artist['id'])
 
-    if(export_type=='csv'): exm.write_to_csv(json_data=albums,pathname=export_pathname+'.csv')
-    elif(export_type=='excel'): exm.write_to_excel(json_data=albums,pathname=export_pathname+'.xlsx')
-    elif(export_type=='json'): exm.write_to_jason(json_data=albums,pathname=export_pathname+'.json')
-    else: exm.write_to_raw(json_data=albums)
+    if(export_type=='raw'): exm.write_to_raw(json_data=albums)
+    else:
+        if(export_pathname == None): sys.exit("SCRIPT ERROR: export_pathname missing.") #backup check if pathname provided, if no script requires fix  
 
+        #if file allready exists, below will exit with error message, set overwrite to True to disable
+        if(export_type=='csv'): exm.write_to_csv(json_data=albums,pathname=export_pathname+'.csv')
+        elif(export_type=='excel'): exm.write_to_excel(json_data=albums,pathname=export_pathname+'.xlsx')
+        elif(export_type=='json'): exm.write_to_jason(json_data=albums,pathname=export_pathname+'.json')
+        else: sys.exit("SCRIPT ERROR: export_type missing.") #if execution reached this line script requires fix  
+    
 if __name__ == '__main__':
     argv = sys.argv
 
