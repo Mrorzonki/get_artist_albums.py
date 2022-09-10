@@ -6,7 +6,7 @@ import export_module as exm
 #other imports
 import sys
 
-def main(artist_name, export_type, export_pathname):
+def main(artist_name, export_type, export_pathname=None):
     export_type = export_type.lower()
 
     auth_sp = spm.get_authentication(cred.client_id, cred.client_secret) 
@@ -26,10 +26,13 @@ if __name__ == '__main__':
         artist_name = argv[1]
         export_type = argv[2]
         
-        if(len(argv) == 4): export_pathname = exm.rmv_file_extension(argv[3]) #check if provided output file pathname, if yes clear its file extension... 
-        else: export_pathname = exm.get_snake_case(artist_name) #... if not create pathname of artist_name
-
-        main(artist_name=artist_name, export_type=export_type, export_pathname=export_pathname)
+        if(export_type == 'raw'): #check if export type is 'raw', if yes skip pathname paramiter
+            main(artist_name=artist_name, export_type=export_type)
+        else:
+            if(len(argv) == 4): export_pathname = exm.rmv_file_extension(argv[3]) #check if provided output file pathname, if yes clear its file extension... 
+            else: export_pathname = exm.get_snake_case(artist_name) #... if not create pathname of artist_name
+            main(artist_name=artist_name, export_type=export_type, export_pathname=export_pathname)
+            
     else:
         error = "Error: invalid paramiters provided"
         error += "\nTry: get_artist_albums.py 'artist name' 'export type' 'file pathname'"
