@@ -27,7 +27,7 @@ if __name__ == '__main__':
         export_type = argv[2]
         
         if(len(argv) == 4): export_pathname = exm.rmv_file_extension(argv[3]) #check if provided output file pathname, if yes clear its file extension... 
-        else: export_pathname = exm.get_snake_case(artist_name) #if not create pathname of artist_name
+        else: export_pathname = exm.get_snake_case(artist_name) #... if not create pathname of artist_name
 
         main(artist_name=artist_name, export_type=export_type, export_pathname=export_pathname)
     else:
