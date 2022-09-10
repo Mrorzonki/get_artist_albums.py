@@ -7,6 +7,8 @@ import export_module as exm
 import sys
 
 #messages
+error_artist_name_mismatch = "ERROR: artist not found, did you mean: \""
+
 error_pathname_missing = "SCRIPT ERROR: export_pathname missing."
 error_type_missing = "SCRIPT ERROR: export_type missing."
 
@@ -22,6 +24,8 @@ def main(artist_name, export_type, export_pathname=None):
     auth_sp = spm.get_authentication(cred.client_id, cred.client_secret) 
     
     artist = spm.get_artist_by_name(auth_sp, artist_name)
+    if(artist_name != artist['name']): sys.exit(error_artist_name_mismatch + artist['name'] + '"?') #check if exact match found, if not exit with error message
+
     albums = spm.get_albums_by_artist(auth_sp, artist['id'])
 
     if(export_type=='raw'): exm.write_to_raw(json_data=albums)
@@ -48,5 +52,4 @@ if __name__ == '__main__':
             else: export_pathname = exm.get_snake_case(artist_name) #... if not create pathname of artist_name
             main(artist_name=artist_name, export_type=export_type, export_pathname=export_pathname)
         
-    else:
-        sys.exit(error_invalid_paramiters)
+    else: sys.exit(error_invalid_paramiters)
