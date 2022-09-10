@@ -22,18 +22,18 @@ def main(artist_name, export_type, export_pathname):
 if __name__ == '__main__':
     argv = sys.argv
 
-    if(3 <= len(argv) <= 4 and argv[2].lower() in ['csv','excel','json','raw']):
+    if(3 <= len(argv) <= 4 and argv[2].lower() in ['csv','excel','json','raw']): #check if contains 3 arguments and if provided correct export type
         artist_name = argv[1]
         export_type = argv[2]
         
-        if(len(argv) == 4): export_pathname = exm.rmv_file_extension(argv[3])
-        else: export_pathname = exm.get_snake_case(artist_name)
+        if(len(argv) == 4): export_pathname = exm.rmv_file_extension(argv[3]) #check if provided output file pathname, if yes clear its file extension... 
+        else: export_pathname = exm.get_snake_case(artist_name) #if not create pathname of artist_name
 
         main(artist_name=artist_name, export_type=export_type, export_pathname=export_pathname)
     else:
         error = "Error: invalid paramiters provided"
         error += "\nTry: get_artist_albums.py 'artist name' 'export type' 'file pathname'"
         error += "\n  'artist name' - name of the aritst in spotify"
-        error += "\n  'export type' - avalible output formats: 'csv','excel','json' (crates a file) or 'raw' (wites to console)"
-        error += "\n  'file pathname' - optional pathname for output file (without file extension)"
+        error += "\n  'export type' - avalible output formats: 'csv','excel','json' (each crates a file) or 'raw' (wites to console)"
+        error += "\n  'file pathname' - optional pathname for output file (without file extension), when skipped artist_name is used"
         sys.exit(error)
