@@ -2,6 +2,7 @@
 import credentials as cred
 import spotipy_module as spm
 import export_module as exm
+import misc_module as mm
 
 #other imports
 import sys
@@ -48,8 +49,8 @@ if __name__ == '__main__':
         if(export_type == 'raw'): #check if export type is 'raw', if yes skip pathname paramiter
             main(artist_name=artist_name, export_type=export_type)
         else:
-            if(len(argv) == 4): export_pathname = exm.rmv_file_extension(argv[3]) #check if provided output file pathname, if yes clear its file extension... 
-            else: export_pathname = exm.get_snake_case(artist_name) #... if not create pathname of artist_name
+            if(len(argv) == 4): export_pathname = mm.rmv_file_extension(argv[3]) #check if provided output file pathname, if yes clear its file extension... 
+            else: export_pathname = mm.get_snake_case(artist_name) #... if not create pathname of artist_name
             main(artist_name=artist_name, export_type=export_type, export_pathname=export_pathname)
         
     else: sys.exit(error_invalid_paramiters)

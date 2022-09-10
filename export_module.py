@@ -1,22 +1,11 @@
 #imports
 import pandas as pd
 import json
-import re
 from sys import exit
 from os.path import exists
 
 #messages
 error_file_exists = 'ERROR: file with same pathname allready exists.'
-
-#helper functions
-
-def get_snake_case(str):
-    str = str.lower()
-    str = re.sub('\s', '_', str)
-    return str
-
-def rmv_file_extension(pathname):
-    return re.sub('[.]\w*$', '', pathname)
 
 #export functions
 
