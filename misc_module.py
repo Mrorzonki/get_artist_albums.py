@@ -16,10 +16,10 @@ def set_credentials(client_id, client_secret): #save credentials to setup.json
         setup_file.write(json.dumps(obj=setup, indent=2))
 
 #helper functions
-def get_snake_case(str):
+def get_snake_case(str): #convert stirng to snake case
     str = str.lower()
     str = re.sub('\s', '_', str)
     return str
 
-def rmv_file_extension(pathname):
+def rmv_file_extension(pathname): #remove flie xetension form provided string pathname
     return re.sub('[.]\w*$', '', pathname)

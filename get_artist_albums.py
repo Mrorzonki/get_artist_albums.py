@@ -47,12 +47,12 @@ def main(artist_name, export_type, export_pathname=None):
 if __name__ == '__main__':
     argv = sys.argv
 
-    if(len(argv) == 4 and argv[1] in ['-c']): mm.set_credentials(client_id=argv[2],client_secret=argv[3])
+    if(len(argv) == 4 and argv[1] in ['-c']): mm.set_credentials(client_id=argv[2],client_secret=argv[3]) #changing credentials operation, check if selected
 
     elif( (cred['client_id'] in [None,'']) 
-    or (cred['client_secret'] in [None,''])): sys.exit(setup_error_credentials_missing)
+    or (cred['client_secret'] in [None,''])): sys.exit(setup_error_credentials_missing)  #check if credentials missing
 
-    elif(3 <= len(argv) <= 4 and argv[2].lower() in ['csv','excel','json','raw']): #check if contains 3 arguments and if provided correct export type
+    elif(3 <= len(argv) <= 4 and argv[2].lower() in ['csv','excel','json','raw']): #get albums of artsit operation, check if contains 3 arguments and if provided correct export type, if not exit with error message
         artist_name = argv[1]
         export_type = argv[2]
         
