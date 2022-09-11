@@ -1,5 +1,4 @@
 #module imports
-import credentials as cred
 import spotipy_module as spm
 import export_module as exm
 import misc_module as mm
@@ -8,6 +7,9 @@ import misc_module as mm
 import sys
 
 #messages
+setup_error_credentials_missing = ("SETUP ERROR: client id or secret is not set."
++ "\n Set credentials with: get_artist_albums.py -c 'client_id' 'client_secret'")
+
 error_artist_name_mismatch = "ERROR: artist not found, did you mean: \""
 
 error_pathname_missing = "SCRIPT ERROR: export_pathname missing."
@@ -19,10 +21,13 @@ error_invalid_paramiters = ("Error: invalid paramiters provided"
 + "\n  'export type' - avalible output formats: 'csv','excel','json' (each crates a file) or 'raw' (wites to console)"
 + "\n  'file pathname' - optional pathname for output file (without file extension), when skipped artist_name is used")
 
+#variables
+cred = mm.get_credentials()
+
 def main(artist_name, export_type, export_pathname=None):
     export_type = export_type.lower()
-
-    auth_sp = spm.get_authentication(cred.client_id, cred.client_secret) 
+    
+    auth_sp = spm.get_authentication(cred['client_id'], cred['client_secret']) 
     
     artist = spm.get_artist_by_name(auth_sp, artist_name)
     if(artist_name != artist['name']): sys.exit(error_artist_name_mismatch + artist['name'] + '"?') #check if exact match found, if not exit with error message
@@ -42,7 +47,12 @@ def main(artist_name, export_type, export_pathname=None):
 if __name__ == '__main__':
     argv = sys.argv
 
-    if(3 <= len(argv) <= 4 and argv[2].lower() in ['csv','excel','json','raw']): #check if contains 3 arguments and if provided correct export type
+    if(len(argv) == 4 and argv[1] in ['-c']): mm.set_credentials(client_id=argv[2],client_secret=argv[3])
+
+    elif( (cred['client_id'] in [None,'']) 
+    or (cred['client_secret'] in [None,''])): sys.exit(setup_error_credentials_missing)
+
+    elif(3 <= len(argv) <= 4 and argv[2].lower() in ['csv','excel','json','raw']): #check if contains 3 arguments and if provided correct export type
         artist_name = argv[1]
         export_type = argv[2]
         
